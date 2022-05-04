@@ -57,8 +57,10 @@ A repository with information related to differnet resources, tools and techniqu
 
 ### **Google Cloud**
 
-* site:.firebaseio.com "COMPANY NAME" : Find endpoints of especific company
-* inurl:bc.googleusercontent.com intitle:index of  : Find dir list of servers
+* site:.firebaseio.com "COMPANY NAME" 
+* inurl:bc.googleusercontent.com intitle:index of  
+* site:storage.googleapis.com
+* 
 
 ### Other Cloud Services
 
@@ -68,6 +70,7 @@ A repository with information related to differnet resources, tools and techniqu
 
 1. Search Open Buckets - https://buckets.grayhatwarfare.com/ 
 2. Search cloud storage and buckets in diferent cloud providers - https://cse.google.com/cse?cx=002972716746423218710:veac6ui3rio#gsc.tab=0&gsc.q=
+3. FullHunt - https://fullhunt.io/search?query=is_cloud%3Atrue+*domain*
 
 ## **Cloud OSINT Tools**
 
