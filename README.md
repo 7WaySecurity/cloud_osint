@@ -67,7 +67,7 @@ site:blob.core.windows.net “keyword”
 1. https://buckets.grayhatwarfare.com/ : Search open Buckets
 2. https://cse.google.com/cse?cx=002972716746423218710:veac6ui3rio#gsc.tab=0&gsc.q= : search cloud storage and buckets in diferent cloud providers
 
-**OSINT to domains**
+## **OSINT to domains**
 
 1. https://spyse.com/tools/subdomain-finder domain and subdomain enumeration 
 2. https://crt.sh Finding domains and subdomains by ssl certificates through certificate transparency
