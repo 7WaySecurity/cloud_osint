@@ -57,6 +57,7 @@ A repository with information related to differnet resources, tools and techniqu
 
 ### **Google Cloud**
 
+* site:googleapis.com +commondatastorage
 * site:.firebaseio.com "COMPANY NAME" 
 * inurl:bc.googleusercontent.com intitle:index of  
 * site:storage.googleapis.com
