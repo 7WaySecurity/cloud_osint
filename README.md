@@ -27,6 +27,7 @@ A repository with informtion related to differnet resources related with Cloud O
 * site:*core.windows.net -web -blob -files
 * site:*core.windows.net inurl:dsts.dsts
 * site:*.core.windows.net inurl:"term" -web
+* site:*.blob.core.windows.net ext:xls | ext:xlsx (login | password | username)
 
 ### **MS Azure credentials harvesting**
 
@@ -64,6 +65,10 @@ A repository with informtion related to differnet resources related with Cloud O
 
 * site:.firebaseio.com "COMPANY NAME" : Find endpoints of especific company
 * inurl:bc.googleusercontent.com intitle:index of  : Find dir list of servers
+
+### Other Cloud Services
+
+* site:vps-*.vps.ovh.net
 
 ## Tools to find buckets
 
