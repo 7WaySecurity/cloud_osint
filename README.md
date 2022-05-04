@@ -1,5 +1,6 @@
-# cloud_osint
-A repository with informtion related to Cloud Osint
+# Cloud OSINT
+
+A repository with informtion related to differnet resources related with Cloud Osint
 
 ## **Google dorks**
 
