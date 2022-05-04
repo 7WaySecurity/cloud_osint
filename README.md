@@ -54,6 +54,8 @@ A repository with information related to differnet resources, tools and techniqu
 * site:s3.amazonaws.com filetype:xls password
 * site:http://s3.amazonaws.com intitle:index.of.bucket
 * site:http://amazonaws.com inurl:".s3.amazonaws.com/"
+* s3 site:amazonaws.com filetype:log
+* site:http://trello.com "aws.amazon.com" "password"
 
 ### **Google Cloud**
 
@@ -74,6 +76,7 @@ A repository with information related to differnet resources, tools and techniqu
 1. Search Open Buckets - https://buckets.grayhatwarfare.com/ 
 2. Search cloud storage and buckets in diferent cloud providers - https://cse.google.com/cse?cx=002972716746423218710:veac6ui3rio#gsc.tab=0&gsc.q=
 3. FullHunt - https://fullhunt.io/search?query=is_cloud%3Atrue+*domain*
+4. Comand to download the results of urls and buckets that contain a especific word and the file is .docx, xlsx and pdf - curl "https://buckets.grayhatwarfare.com/api/v1/files/[WORD TO SEARCH]?access_token=[access_token]&extensions=docx,xlsx,pdf"
 
 ## **Cloud OSINT Tools**
 
