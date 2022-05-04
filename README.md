@@ -60,7 +60,7 @@ A repository with information related to differnet resources, tools and techniqu
 * site:.firebaseio.com "COMPANY NAME" 
 * inurl:bc.googleusercontent.com intitle:index of  
 * site:storage.googleapis.com
-* 
+* site:console.cloud.google.com/storage/browser
 
 ### Other Cloud Services
 
