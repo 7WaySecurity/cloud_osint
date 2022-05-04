@@ -1,16 +1,16 @@
 # **Cloud OSINT**
 
-A repository with informtion related to differnet resources related with Cloud Osint
+A repository with information related to differnet resources, tools and techniques related with Cloud OSINT
 
 ## **Cloud Infrastructure**
 
 ### **Azure Storage**
 
-* Blob storage: http://**mystorageaccount**.blob.core.windows.net
-* Table storage: http:///**mystorageaccount**.table.core.windows.net
-* Queue storage: http://**mystorageaccount**.queue.core.windows.net
-* Azure Files: http:///**mystorageaccount**.file.core.windows.net
-* Database: **mystorageaccount**.database.windows.net
+* Blob storage: http://*mystorageaccount*.blob.core.windows.net
+* Table storage: http://*mystorageaccount*.table.core.windows.net
+* Queue storage: http://*mystorageaccount*.queue.core.windows.net
+* Azure Files: http://*mystorageaccount*.file.core.windows.net
+* Database: http://*mystorageaccount*.database.windows.net
 
 ### **AWS S3 Buckets**
 
@@ -20,30 +20,26 @@ A repository with informtion related to differnet resources related with Cloud O
 
 ## **Google dorks**
 
-### **Azure Infrastructure**
+### **Azure**
 
-* Identification of Azure Infrastructure
+```
 * site:blob.core.windows.net “keyword” 
-
-### **Sensitive Information stored in Azure**
 * site:"blob.core.windows.net" and intext:"CONFIDENTIAL"
 * site:*.core.windows.net intext:"TLP:RED"
-* site:*core.windows.net
-* site:*core.windows.net +blob
-* site:*core.windows.net +files -web -blob
-* site:*core.windows.net -web
-* site:*core.windows.net -web -blob -files
-* site:*core.windows.net inurl:dsts.dsts
+* site:*.core.windows.net
+* site:*.core.windows.net +blob
+* site:*.core.windows.net +files -web -blob
+* site:*.core.windows.net -web
+* site:*.core.windows.net -web -blob -files
+* site:*.core.windows.net inurl:dsts.dsts
 * site:*.core.windows.net inurl:"term" -web
 * site:*.blob.core.windows.net ext:xls | ext:xlsx (login | password | username)
-
-### **MS Azure credentials harvesting**
-
 * intext:connectionstring blob filetype:config
 * intext:accountkey windows.net filetype:xml
 * intext:storageaccountkey windows.net filetype:txt
+```
 
-### **Confidential Files stored in AWS**
+### **AWS**
 
 * site:"s3-external-1.amazonaws.com" and intext:CONFIDENTIAL
 * site:"s3.amazonaws.com" and intext:CONFIDENTIAL
@@ -51,9 +47,6 @@ A repository with informtion related to differnet resources related with Cloud O
 * site:"s3-external-1.amazonaws.com" and intext:"TOP SECRET"
 * site:"s3.amazonaws.com" and intext:"tlp:red"
 * site:"s3.amazonaws.com" and intext:"tlp:amber"
-
-### **Dorks to enumerate AWS Buckets**
-
 * site:s3.amazonaws.com example
 * site:s3.amazonaws.com example.com
 * site:s3.amazonaws.com example-com
@@ -63,7 +56,7 @@ A repository with informtion related to differnet resources related with Cloud O
 * site:http://s3.amazonaws.com intitle:index.of.bucket
 * site:http://amazonaws.com inurl:".s3.amazonaws.com/"
 
-### **GCP and related services**
+### **Google Cloud**
 
 * site:.firebaseio.com "COMPANY NAME" : Find endpoints of especific company
 * inurl:bc.googleusercontent.com intitle:index of  : Find dir list of servers
