@@ -38,7 +38,6 @@ A repository with information related to differnet resources, tools and techniqu
 * intext:accountkey windows.net filetype:xml
 * intext:storageaccountkey windows.net filetype:txt
 ```
-
 ### **AWS**
 
 * site:"s3-external-1.amazonaws.com" and intext:CONFIDENTIAL
@@ -67,10 +66,12 @@ A repository with information related to differnet resources, tools and techniqu
 
 ## **Web Cloud OSINT Resources**
 
-1. https://buckets.grayhatwarfare.com/ : Search open Buckets
-2. https://cse.google.com/cse?cx=002972716746423218710:veac6ui3rio#gsc.tab=0&gsc.q= : search cloud storage and buckets in diferent cloud providers
+1. Search Open Buckets - https://buckets.grayhatwarfare.com/ 
+2. Search cloud storage and buckets in diferent cloud providers - https://cse.google.com/cse?cx=002972716746423218710:veac6ui3rio#gsc.tab=0&gsc.q=
 
 ## **Cloud OSINT Tools**
+
+1. CloudEnum - https://github.com/initstring/cloud_enum
 
 ## **Domain Identification**
 
