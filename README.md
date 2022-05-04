@@ -77,7 +77,3 @@ site:blob.core.windows.net “keyword”
 6. https://www.zoomeye.org/ domains and host exposed in internet similar to shodan
 7. https://osint.sh/subdomain/ find subdomains 
 8. https://osint.sh/dnshistory/ History of a dns record
-
-## Dork to find sub domains
-
-site:*.Enter Target Domain
