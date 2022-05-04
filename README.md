@@ -6,9 +6,10 @@ A repository with informtion related to differnet resources related with Cloud O
 
 ### **Azure Infrastructure**
 
+Identification of Azure Infrastructure
 site:blob.core.windows.net “keyword” 
 
-#### *it´s important remember the naming of the source , azure follows the same patterns for its resource, example*
+### **Azure storage resources**
 
 * Blob storage: http://**mystorageaccount**.blob.core.windows.net
 * Table storage: http:///**mystorageaccount**.table.core.windows.net
@@ -16,7 +17,7 @@ site:blob.core.windows.net “keyword”
 * Azure Files: http:///**mystorageaccount**.file.core.windows.net
 * Database: **mystorageaccount**.database.windows.net
 
-#### *Sensitive Information stored in Azure*
+### **Sensitive Information stored in Azure**
 * site:"blob.core.windows.net" and intext:"CONFIDENTIAL"
 * site:*.core.windows.net intext:"TLP:RED"
 * site:*core.windows.net
@@ -27,13 +28,17 @@ site:blob.core.windows.net “keyword”
 * site:*core.windows.net inurl:dsts.dsts
 * site:*.core.windows.net inurl:"term" -web
 
-### MS Azure credentials harvesting
+### **MS Azure credentials harvesting**
 
 * intext:connectionstring blob filetype:config
 * intext:accountkey windows.net filetype:xml
 * intext:storageaccountkey windows.net filetype:txt
 
-## **AWS**
+### **Estructure of S3 Buckets**
+
+* https://[bucketname].s3.amazonaws.com
+* https://s3-[region].amazonaws/[bucketname]/
+* https://[bucketname].s3-website-[region].amazonaws.com/
 
 ### **Confidential Files stored in AWS**
 
@@ -44,7 +49,7 @@ site:blob.core.windows.net “keyword”
 * site:"s3.amazonaws.com" and intext:"tlp:red"
 * site:"s3.amazonaws.com" and intext:"tlp:amber"
 
-### **Dorks to enumerate Buckets**
+### **Dorks to enumerate AWS Buckets**
 
 * site:s3.amazonaws.com example
 * site:s3.amazonaws.com example.com
@@ -55,14 +60,7 @@ site:blob.core.windows.net “keyword”
 * site:http://s3.amazonaws.com intitle:index.of.bucket
 * site:http://amazonaws.com inurl:".s3.amazonaws.com/"
 
-# Tools to find buckets
-
-### **Estructure of Buckets S3**
-
-* https://[bucketname].s3.amazonaws.com
-* https://s3-[region].amazonaws/[bucketname]/
-* https://[bucketname].s3-website-[region].amazonaws.com/
-
+## Tools to find buckets
 
 ### **Tools**
 
@@ -70,7 +68,6 @@ site:blob.core.windows.net “keyword”
 2. https://cse.google.com/cse?cx=002972716746423218710:veac6ui3rio#gsc.tab=0&gsc.q= : search cloud storage and buckets in diferent cloud providers
 
 **OSINT to domains**
-
 
 1. https://spyse.com/tools/subdomain-finder domain and subdomain enumeration 
 2. https://crt.sh Finding domains and subdomains by ssl certificates through certificate transparency
