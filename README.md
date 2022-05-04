@@ -1,8 +1,13 @@
-# Cloud OSINT
+# **Cloud OSINT**
 
 A repository with informtion related to differnet resources related with Cloud Osint
 
-## **Cloud Infrastructure**
+## **Google dorks**
+
+### **Azure Infrastructure**
+
+* Identification of Azure Infrastructure
+* site:blob.core.windows.net “keyword” 
 
 ### **Azure storage resources**
 
@@ -10,20 +15,7 @@ A repository with informtion related to differnet resources related with Cloud O
 * Table storage: http:///**mystorageaccount**.table.core.windows.net
 * Queue storage: http://**mystorageaccount**.queue.core.windows.net
 * Azure Files: http:///**mystorageaccount**.file.core.windows.net
-* Database: **mystorageaccount**.database.windows.net### 
-
-### **AWS S3 Buckets**
-
-* https://[bucketname].s3.amazonaws.com
-* https://s3-[region].amazonaws/[bucketname]/
-* https://[bucketname].s3-website-[region].amazonaws.com/
-
-## **Google Dorks**
-
-### **Azure Infrastructure**
-
-Identification of Azure Infrastructure
-site:blob.core.windows.net “keyword” 
+* Database: **mystorageaccount**.database.windows.net
 
 ### **Sensitive Information stored in Azure**
 * site:"blob.core.windows.net" and intext:"CONFIDENTIAL"
@@ -41,6 +33,12 @@ site:blob.core.windows.net “keyword”
 * intext:connectionstring blob filetype:config
 * intext:accountkey windows.net filetype:xml
 * intext:storageaccountkey windows.net filetype:txt
+
+### **Estructure of S3 Buckets**
+
+* https://[bucketname].s3.amazonaws.com
+* https://s3-[region].amazonaws/[bucketname]/
+* https://[bucketname].s3-website-[region].amazonaws.com/
 
 ### **Confidential Files stored in AWS**
 
@@ -61,6 +59,11 @@ site:blob.core.windows.net “keyword”
 * site:s3.amazonaws.com filetype:xls password
 * site:http://s3.amazonaws.com intitle:index.of.bucket
 * site:http://amazonaws.com inurl:".s3.amazonaws.com/"
+
+### **GCP and related services**
+
+* site:.firebaseio.com "COMPANY NAME" : Find endpoints of especific company
+* inurl:bc.googleusercontent.com intitle:index of  : Find dir list of servers
 
 ## Tools to find buckets
 
