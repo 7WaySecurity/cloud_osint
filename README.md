@@ -2,12 +2,7 @@
 
 A repository with informtion related to differnet resources related with Cloud Osint
 
-## **Google dorks**
-
-### **Azure Infrastructure**
-
-Identification of Azure Infrastructure
-site:blob.core.windows.net “keyword” 
+## **Cloud Infrastructure**
 
 ### **Azure storage resources**
 
@@ -15,7 +10,20 @@ site:blob.core.windows.net “keyword”
 * Table storage: http:///**mystorageaccount**.table.core.windows.net
 * Queue storage: http://**mystorageaccount**.queue.core.windows.net
 * Azure Files: http:///**mystorageaccount**.file.core.windows.net
-* Database: **mystorageaccount**.database.windows.net
+* Database: **mystorageaccount**.database.windows.net### 
+
+### **AWS S3 Buckets**
+
+* https://[bucketname].s3.amazonaws.com
+* https://s3-[region].amazonaws/[bucketname]/
+* https://[bucketname].s3-website-[region].amazonaws.com/
+
+## **Google Dorks**
+
+### **Azure Infrastructure**
+
+Identification of Azure Infrastructure
+site:blob.core.windows.net “keyword” 
 
 ### **Sensitive Information stored in Azure**
 * site:"blob.core.windows.net" and intext:"CONFIDENTIAL"
@@ -33,12 +41,6 @@ site:blob.core.windows.net “keyword”
 * intext:connectionstring blob filetype:config
 * intext:accountkey windows.net filetype:xml
 * intext:storageaccountkey windows.net filetype:txt
-
-### **Estructure of S3 Buckets**
-
-* https://[bucketname].s3.amazonaws.com
-* https://s3-[region].amazonaws/[bucketname]/
-* https://[bucketname].s3-website-[region].amazonaws.com/
 
 ### **Confidential Files stored in AWS**
 
