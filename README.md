@@ -63,6 +63,7 @@ A repository with information related to differnet resources, tools and techniqu
 * site:storage.googleapis.com
 * Bucket list for a project - site:console.cloud.google.com/storage/browser
 * Details for an object - site:console.cloud.google.com/storage/browser/_details
+* site:firebasestorage.googleapis.com
 
 ### Other Cloud Services
 
