@@ -18,6 +18,10 @@ A repository with information related to differnet resources, tools and techniqu
 * https://s3-[region].amazonaws/[bucketname]/
 * https://[bucketname].s3-website-[region].amazonaws.com/
 
+### **GCP Technologies**
+* Technologies Cheatsheet - https://googlecloudcheatsheet.withgoogle.com
+* GCP Regions and Zones - https://cloud.google.com/compute/docs/regions-zones
+
 ## **Google dorks**
 
 ### **Azure**
