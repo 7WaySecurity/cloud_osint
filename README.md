@@ -82,6 +82,7 @@ A repository with information related to differnet resources, tools and techniqu
 3. FullHunt - https://fullhunt.io/search?query=is_cloud%3Atrue+*domain*
 4. Comand to download the results of urls and buckets that contain a especific word and the file is .docx, xlsx and pdf - curl "https://buckets.grayhatwarfare.com/api/v1/files/[WORD TO SEARCH]?access_token=[access_token]&extensions=docx,xlsx,pdf"
 5. Azure Tenant Information including subdomains and configuration - https://aadinternals.com/osint/
+6. Misconfigured servers containing sensitive data, including Azure Blob Storage, Amazon AWS S3 Buckets, and Google Buckets - https://socradar.io/labs/bluebleed
 
 ## **Cloud OSINT Tools**
 
