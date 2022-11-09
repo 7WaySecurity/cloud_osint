@@ -87,6 +87,7 @@ A repository with information related to differnet resources, tools and techniqu
 ## **Cloud OSINT Tools**
 
 1. CloudEnum - https://github.com/initstring/cloud_enum
+2. S3 Browser - https://s3browser.com - Is not properly a tool for OSINT task but is a Windows client for Amazon S3 and Amazon CloudFront that could help to browse some files.
 
 ## **Domain Identification**
 
