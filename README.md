@@ -99,3 +99,8 @@ A repository with information related to differnet resources, tools and techniqu
 6. https://www.zoomeye.org/ domains and host exposed in internet similar to shodan
 7. https://osint.sh/subdomain/ find subdomains 
 8. https://osint.sh/dnshistory/ History of a dns record
+
+## **help creating your own dorks**
+1. https://dorksearch.com/
+2. https://www.dorkgpt.com/ dorks with chatgpt
+
