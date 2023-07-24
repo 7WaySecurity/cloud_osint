@@ -104,3 +104,7 @@ A repository with information related to differnet resources, tools and techniqu
 1. https://dorksearch.com/
 2. https://www.dorkgpt.com/ dorks with chatgpt
 
+## **Others**
+
+1. https://www.dedigger.com/# find exposed files in google drive, try search terms: AWS, azure, gcp, etc.
+
