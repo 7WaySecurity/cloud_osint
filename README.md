@@ -71,6 +71,29 @@ A repository with information related to differnet resources, tools and techniqu
 * Details for an object - site:console.cloud.google.com/storage/browser/_details
 * site:firebasestorage.googleapis.com
 
+## **Shodan Dorks**
+
+### **Filter Reference**
+
+* cloud.provider
+* cloud.region
+* cloud.service
+
+### **Azure**
+
+* cloud.service:"azureCloud"
+* cloud.service:"azureCloud" country:GB,US http.title:"swagger" http.status:200 - API Documentation
+* cloud.service:"azureCloud" http.status:200 country:GB,US -http.title:"Your Azure Function App is up and running." -http.title"IIS Windows Server“ - Web Services that are not default splash pages
+* cloud.provider:"Azure" country:GB,US http.status:200 http.title:"Index of /" ssl:true - Web Apps with directory listings enabled and SSL
+* cloud.provider:"Azure" country:GB,US http.status:200 http.title:"Index of /" - Web Apps with directory listings enabled
+* cloud.provider:"Azure" hostname:"cloudapp.net" http.status:200,302 - Cloud Apps
+* cloud.service:"AzureCloud" http.status:200 http.title:"api" - APIs
+
+### **Amazon**
+
+* cloud.provider:"Amazon"
+* cloud.provider:"Amazon" http.status:200,302 http.title:"Index of /"
+
 ### Other Cloud Services
 
 * site:vps-*.vps.ovh.net
