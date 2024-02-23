@@ -1,6 +1,6 @@
 # **Cloud OSINT**
 
-A repository with information related to differnet resources, tools and techniques related with Cloud OSINT
+A repository with information related to different resources, tools, and techniques related to Cloud OSINT
 
 ## **Cloud Infrastructure**
 
@@ -101,33 +101,34 @@ A repository with information related to differnet resources, tools and techniqu
 ## **Web Cloud OSINT Resources**
 
 1. Search Open Buckets - https://buckets.grayhatwarfare.com/ 
-2. Search cloud storage and buckets in diferent cloud providers - https://cse.google.com/cse?cx=002972716746423218710:veac6ui3rio#gsc.tab=0&gsc.q=
+2. Search cloud storage and buckets in different cloud providers - https://cse.google.com/cse?cx=002972716746423218710:veac6ui3rio#gsc.tab=0&gsc.q=
 3. FullHunt - https://fullhunt.io/search?query=is_cloud%3Atrue+*domain*
-4. Comand to download the results of urls and buckets that contain a especific word and the file is .docx, xlsx and pdf - curl "https://buckets.grayhatwarfare.com/api/v1/files/[WORD TO SEARCH]?access_token=[access_token]&extensions=docx,xlsx,pdf"
+4. Comand to download the results of URLs and buckets that contain a specific word and the file is .docx, xlsx and pdf - curl "https://buckets.grayhatwarfare.com/api/v1/files/[WORD TO SEARCH]?access_token=[access_token]&extensions=docx,xlsx,pdf"
 5. Azure Tenant Information including subdomains and configuration - https://aadinternals.com/osint/
 6. Misconfigured servers containing sensitive data, including Azure Blob Storage, Amazon AWS S3 Buckets, and Google Buckets - https://socradar.io/labs/bluebleed
+7. Cloud and other services key exposure - https://forager.trufflesecurity.com/explore
 
 ## **Cloud OSINT Tools**
 
 1. CloudEnum - https://github.com/initstring/cloud_enum
-2. S3 Browser - https://s3browser.com - Is not properly a tool for OSINT task but is a Windows client for Amazon S3 and Amazon CloudFront that could help to browse some files.
+2. S3 Browser - https://s3browser.com - This is not properly a tool for OSINT tasks but is a Windows client for Amazon S3 and Amazon CloudFront that could help to browse some files.
 
 ## **Domain Identification**
 
 1. https://spyse.com/tools/subdomain-finder domain and subdomain enumeration 
-2. https://crt.sh Finding domains and subdomains by ssl certificates through certificate transparency
+2. https://crt.sh Finding domains and subdomains by SSL certificates through certificate transparency
 3. https://dnsdumpster.com/ domain and subdomain enumeration 
 4. https://osint.sh/subdomain/ domain and subdomain enumeration 
-5. https://search.censys.io/?q= queries by domain, host , ssl certificate , among others
-6. https://www.zoomeye.org/ domains and host exposed in internet similar to shodan
+5. https://search.censys.io/?q= queries by domain, host, SSL certificate, among others
+6. https://www.zoomeye.org/ domains and host exposed on the internet similar to Shodan
 7. https://osint.sh/subdomain/ find subdomains 
-8. https://osint.sh/dnshistory/ History of a dns record
+8. https://osint.sh/dnshistory/ History of a DNS record
 
-## **Help creating your own dorks**
+## **Help to create your own dorks**
 1. https://dorksearch.com/
 2. https://www.dorkgpt.com/ dorks with chatgpt
 
 ## **Others**
 
-1. https://www.dedigger.com/# find exposed files in google drive, try search terms: AWS, azure, gcp, etc.
+1. https://www.dedigger.com/# find exposed files in Google Drive, try search terms: AWS, azure, gcp, etc.
 
