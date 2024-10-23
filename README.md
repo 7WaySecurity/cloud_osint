@@ -22,6 +22,10 @@ A repository with information related to different resources, tools, and techniq
 * Technologies Cheatsheet - https://googlecloudcheatsheet.withgoogle.com
 * GCP Regions and Zones - https://cloud.google.com/compute/docs/regions-zones
 
+### **IBM Cloud**
+* IBM Global Cloud Data Centers - https://www.ibm.com/cloud/data-centers
+* IBM Cloud IP ranges - https://cloud.ibm.com/docs/cloud-infrastructure?topic=cloud-infrastructure-ibm-cloud-ip-ranges
+
 ## **Google dorks**
 
 ### **Azure**
@@ -44,6 +48,7 @@ A repository with information related to different resources, tools, and techniq
 ```
 ### **AWS**
 
+```
 * site:"s3-external-1.amazonaws.com" and intext:CONFIDENTIAL
 * site:"s3.amazonaws.com" and intext:CONFIDENTIAL
 * site:"s3.dualstack.us-east-1.amazonaws.com" and intext:CONFIDENTIAL
@@ -60,9 +65,10 @@ A repository with information related to different resources, tools, and techniq
 * site:http://amazonaws.com inurl:".s3.amazonaws.com/"
 * s3 site:amazonaws.com filetype:log
 * site:http://trello.com "aws.amazon.com" "password"
-
+```
 ### **Google Cloud**
 
+```
 * site:googleapis.com +commondatastorage
 * site:.firebaseio.com "COMPANY NAME" 
 * inurl:bc.googleusercontent.com intitle:index of  
@@ -70,7 +76,22 @@ A repository with information related to different resources, tools, and techniq
 * Bucket list for a project - site:console.cloud.google.com/storage/browser
 * Details for an object - site:console.cloud.google.com/storage/browser/_details
 * site:firebasestorage.googleapis.com
-
+```
+### **IBM Cloud**
+```
+* site:appdomain.cloud
+* site:appdomain.cloud +s3
+* site:*cloud-object-storage.appdomain.cloud
+* site:codeengine.appdomain.cloud
+* site:containers.appdomain.cloud
+* site:clb.appdomain.cloud
+* site:apiconnect.appdomain.cloud
+* site:cdn.appdomain.cloud
+* site:lb.appdomain.cloud
+* site:vmware.cloud.ibm.com - VMware Cloud Director Availability
+* site:appid.cloud.ibm.com - IBM Cloud App ID Management Configuration APIs and AppID Authentication Portals
+* site:site:ibmmarketingcloud.com
+```
 ## **Shodan Dorks**
 
 ### **Filter Reference**
