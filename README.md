@@ -132,6 +132,8 @@ A repository with information related to different resources, tools, and techniq
 5. Azure Tenant Information including subdomains and configuration - https://aadinternals.com/osint/
 6. Misconfigured servers containing sensitive data, including Azure Blob Storage, Amazon AWS S3 Buckets, and Google Buckets - https://socradar.io/labs/bluebleed
 7. Cloud and other services key exposure - https://forager.trufflesecurity.com/explore
+8. AWS Eye is an OSINT (Open Source Intelligence) tool designed to investigate Amazon Web Services (AWS) configurations. It specializes in identifying and analyzing publicly misconfigured resources such as S3 buckets, helping security researchers and OSINT enthusiasts uncover potential cloud exposures efficiently - https://awseye.com/
+
 
 ## **Cloud OSINT Tools**
 
