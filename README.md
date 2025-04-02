@@ -45,6 +45,7 @@ A repository with information related to different resources, tools, and techniq
 * intext:connectionstring blob filetype:config
 * intext:accountkey windows.net filetype:xml
 * intext:storageaccountkey windows.net filetype:txt
+* Azure SAS Tokens - "bfqt&srt"
 ```
 ### **AWS**
 
