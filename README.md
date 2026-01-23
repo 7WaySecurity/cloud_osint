@@ -355,7 +355,7 @@ Invoke-EnumerateAzureSubDomains -Base companyname
 * site:notion.site "keyword"
 * site:http://trello.com "aws.amazon.com" "password"
 ```
-## **Cloud Medata and Fingerprint**
+## **Cloud Metadata and Fingerprint**
 
 HTTP headers, certificates, and metadata endpoints provide reliable indicators for identifying cloud providers and services.
 
