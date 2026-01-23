@@ -335,7 +335,7 @@ Invoke-EnumerateAzureSubDomains -Base companyname
 * site:*.appspot.com
 * site:firebaseio.com
 ```
-### **IBM Cloud**
+**IBM Cloud**
 ```
 * site:appdomain.cloud
 * site:appdomain.cloud +s3
