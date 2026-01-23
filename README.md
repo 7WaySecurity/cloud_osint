@@ -276,9 +276,9 @@ Invoke-EnumerateAzureSubDomains -Base companyname
     * Query syntax (YQL): `plugin:GitConfigPlugin`, `protocol:mysql`, `asn:16509`
     * 15-day responsible disclosure delay
 
-**PublicWWW** — https://publicwww.com/
-- Source code search for cloud storage references
-- Search: `"s3.amazonaws.com"`, `"blob.core.windows.net"`
+* **PublicWWW** — https://publicwww.com/
+   * Source code search for cloud storage references
+   * Search: `"s3.amazonaws.com"`, `"blob.core.windows.net"`
 
 ### **Google dorks**
 
