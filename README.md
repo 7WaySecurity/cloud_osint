@@ -332,7 +332,7 @@ cloud.provider:"DigitalOcean" http.status:200,302
 
 > Certificate Transparency (CT) logs record every SSL/TLS certificate issued, making them a goldmine for discovering cloud-hosted assets and subdomains.
 
-- [crt.sh](https://crt.sh) - Search CT logs by domain, organization, or certificate fingerprint. Use `%.example.com` to find all subdomains.
+- [crt.sh](https://crt.sh) - Search CT logs by domain, organization, or certificate fingerprint. Use `example.com` to find all subdomains.
 - [Censys Certificates](https://search.censys.io/certificates) - Advanced certificate search with filters for cloud provider organizations.
 - [CertStream](https://certstream.calidog.io/) - Real-time certificate issuance monitoring to detect new cloud deployments as they go live.
 - [Facebook CT Monitor](https://developers.facebook.com/tools/ct/) - Monitor certificates issued for specific domains.
