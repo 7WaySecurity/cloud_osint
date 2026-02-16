@@ -1,0 +1,40 @@
+name: Check Links
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 8 * * 1'
+
+jobs:
+  linkChecker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Link Checker
+        id: lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          fail: false
+          args: >-
+            --verbose
+            --no-progress
+            --accept 200,204,301,302,403,429
+            --timeout 30
+            --max-retries 3
+            --exclude-loopback
+            --exclude "linkedin.com"
+            --exclude "twitter.com"
+            --exclude "x.com"
+            '*.md'
+
+      - name: Create Issue From Lychee Output
+        if: steps.lychee.outputs.exit_code != 0
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: "🔗 Link Checker Report"
+          content-filepath: ./lychee/out.md
+          labels: broken-link, automated
