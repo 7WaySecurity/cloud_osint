@@ -71,17 +71,17 @@
 
 > Cloud OSINT follows a structured reconnaissance workflow. Use this framework to map resources to your investigation phase.
 ```mermaid
-graph LR
-    A["🔍 Passive Recon"] --> B["📡 Infrastructure Mapping"]
-    B --> C["🗂️ Asset Discovery"]
-    C --> D["🔓 Exposure Analysis"]
-    D --> E["📊 Reporting"]
+    graph LR
+      A["🔍 Passive Recon"] --> B["📡 Infrastructure Mapping"]
+      B --> C["🗂️ Asset Discovery"]
+      C --> D["🔓 Exposure Analysis"]
+      D --> E["📊 Reporting"]
 
-    style A fill:#1a1a2e,stroke:#e94560,color:#fff
-    style B fill:#1a1a2e,stroke:#0f3460,color:#fff
-    style C fill:#1a1a2e,stroke:#533483,color:#fff
-    style D fill:#1a1a2e,stroke:#e94560,color:#fff
-    style E fill:#1a1a2e,stroke:#0f3460,color:#fff
+        style A fill:#1a1a2e,stroke:#e94560,color:#fff
+        style B fill:#1a1a2e,stroke:#0f3460,color:#fff
+        style C fill:#1a1a2e,stroke:#533483,color:#fff
+        style D fill:#1a1a2e,stroke:#e94560,color:#fff
+        style E fill:#1a1a2e,stroke:#0f3460,color:#fff
 ```
 
 | Phase | Techniques | Tools and Resources |
