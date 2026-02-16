@@ -1,627 +1,500 @@
-# **Cloud OSINT**
+<p align="center">
+  <img src="assets/cloud-osint-banner.jpg" alt="Cloud OSINT - Uncover the Unseen" width="600">
+</p>
 
-**Cloud OSINT** is a centralized knowledge base for security professionals who need to identify, enumerate, and assess cloud infrastructure using publicly available information. As organizations increasingly migrate critical workloads to multi-cloud environments, the attack surface expands across dozens of services with predictable patterns that can be discovered through passive reconnaissance.
-This repository provides actionable intelligence on official IP range publications and BGP/ASN references for major cloud providers, DNS naming conventions and subdomain patterns for storage, compute, and serverless services, certificate transparency mining techniques for discovering cloud-hosted assets, tools and databases for detecting misconfigured buckets, containers, and exposed services, HTTP header signatures and metadata endpoints for cloud provider fingerprinting, Shodan, Censys, and specialized search engine queries optimized for cloud discovery, and provider-specific reconnaissance methodologies for AWS, Azure, GCP, and secondary providers.
-Whether you are conducting authorized penetration tests, building threat intelligence capabilities, performing attack surface management, or hunting for bug bounties, this resource helps you systematically discover cloud assets that may be invisible to traditional reconnaissance approaches.
+<p align="center">
+  <strong>The Definitive Cloud OSINT Resource - Uncover the Unseen</strong>
+</p>
 
-## **IP ranges and Network Intelligence**
+<p align="center">
+  <a href="https://awesome.re"><img src="https://awesome.re/badge-flat2.svg" alt="Awesome"></a>
+  <img src="https://img.shields.io/github/stars/7WaySecurity/cloud_osint?style=flat-square&color=yellow" alt="Stars">
+  <img src="https://img.shields.io/github/forks/7WaySecurity/cloud_osint?style=flat-square&color=blue" alt="Forks">
+  <img src="https://img.shields.io/github/last-commit/7WaySecurity/cloud_osint?style=flat-square&color=green" alt="Last Commit">
+  <img src="https://img.shields.io/github/license/7WaySecurity/cloud_osint?style=flat-square" alt="License">
+  <img src="https://img.shields.io/github/contributors/7WaySecurity/cloud_osint?style=flat-square&color=orange" alt="Contributors">
+  <img src="https://img.shields.io/badge/clouds-AWS%20%7C%20Azure%20%7C%20GCP%20%7C%20IBM%20%7C%20Oracle-informational?style=flat-square" alt="Cloud Providers">
+</p>
 
-Cloud providers publish authoritative IP range data that forms the foundation of cloud attribution. These official sources enable accurate IP-to-provider mapping for security monitoring and threat analysis.
+<p align="center">
+  <sub>Curated collection of OSINT resources for cloud infrastructure reconnaissance.<br>
+  Includes dorks, tools, techniques, and methodologies for AWS, Azure, GCP, Oracle Cloud, IBM Cloud, and more.<br>
+  Built for security professionals, red teamers, bug bounty hunters, and cloud architects.</sub>
+</p>
 
-### **Official IP range publications**
+<p align="center">
+  If you find this useful, please ⭐ <strong>star this repo</strong> — it helps others discover it!
+</p>
 
-* AWS - https://ip-ranges.amazonaws.com/ip-ranges.json
-* Azure - https://www.microsoft.com/en-us/download/details.aspx?id=56519
-* GCP - https://www.gstatic.com/ipranges/cloud.json
-* GCP (All cloud solutions) - https://www.gstatic.com/ipranges/goog.json
-* Oracle Cloud - https://docs.oracle.com/iaas/tools/public_ip_ranges.json
-* Cloudfare - https://api.cloudflare.com/client/v4/ips
-* DigitalOcean - https://digitalocean.com/geo/google.csv
+---
 
-### **AWS IP Ranges Parsing Example**
+## 📖 Contents
 
+- [🗺️ Cloud OSINT Methodology](#️-cloud-osint-methodology)
+- [☁️ Cloud Infrastructure Patterns](#️-cloud-infrastructure-patterns)
+  - [🔵 Azure Storage](#-azure-storage)
+  - [🟠 AWS Regions](#-aws-regions)
+  - [🟠 AWS S3 Buckets](#-aws-s3-buckets)
+  - [🟠 AWS SQS](#-aws-sqs)
+  - [🔴 GCP Technologies](#-gcp-technologies)
+  - [⚫ IBM Cloud](#-ibm-cloud)
+  - [🟤 Oracle Cloud](#-oracle-cloud)
+  - [📡 Official IP Range Sources](#-official-ip-range-sources)
+- [🔍 Google Dorks](#-google-dorks)
+  - [Azure Dorks](#azure-dorks)
+  - [AWS Dorks](#aws-dorks)
+  - [Google Cloud Dorks](#google-cloud-dorks)
+  - [IBM Cloud Dorks](#ibm-cloud-dorks)
+  - [Miscellaneous Dorks](#miscellaneous-dorks)
+- [🌐 Shodan Dorks](#-shodan-dorks)
+  - [Filter Reference](#filter-reference)
+  - [Azure Queries](#azure-queries)
+  - [Amazon Queries](#amazon-queries)
+  - [Other Cloud Queries](#other-cloud-queries)
+- [🔐 Certificate Transparency](#-certificate-transparency)
+- [📚 Web Cloud OSINT Resources](#-web-cloud-osint-resources)
+- [🛠️ Cloud OSINT Tools](#️-cloud-osint-tools)
+  - [Multi-Cloud Tools](#multi-cloud-tools)
+  - [AWS-Specific Tools](#aws-specific-tools)
+  - [Azure-Specific Tools](#azure-specific-tools)
+  - [GCP-Specific Tools](#gcp-specific-tools)
+  - [Bucket and Storage Discovery](#bucket--storage-discovery)
+- [🌍 Domain and Subdomain Identification](#-domain--subdomain-identification)
+- [📝 Dork Generation Tools](#-dork-generation-tools)
+- [📦 Additional Resources](#-additional-resources)
+- [⚖️ Responsible Use](#️-responsible-use)
+- [🤝 Contributing](#-contributing)
+
+---
+
+## 🗺️ Cloud OSINT Methodology
+
+> Cloud OSINT follows a structured reconnaissance workflow. Use this framework to map resources to your investigation phase.
+```mermaid
+graph LR
+    A["🔍 Passive Recon"] --> B["📡 Infrastructure Mapping"]
+    B --> C["🗂️ Asset Discovery"]
+    C --> D["🔓 Exposure Analysis"]
+    D --> E["📊 Reporting"]
+
+    style A fill:#1a1a2e,stroke:#e94560,color:#fff
+    style B fill:#1a1a2e,stroke:#0f3460,color:#fff
+    style C fill:#1a1a2e,stroke:#533483,color:#fff
+    style D fill:#1a1a2e,stroke:#e94560,color:#fff
+    style E fill:#1a1a2e,stroke:#0f3460,color:#fff
 ```
-curl https://ip-ranges.amazonaws.com/ip-ranges.json | jq -r '.prefixes[] | select(.service=="S3") | .ip_prefix'
-curl https://ip-ranges.amazonaws.com/ip-ranges.json | jq -r '.prefixes[] | select(.region=="us-east-1") | .ip_prefix'
+
+| Phase | Techniques | Tools and Resources |
+|-------|-----------|-------------------|
+| **🔍 Passive Recon** | Google dorks, Shodan queries, DNS lookups, Certificate Transparency | DorkSearch, Shodan, crt.sh, Censys |
+| **📡 Infrastructure Mapping** | IP range analysis, cloud provider identification, region mapping | AWS ip-ranges.json, Azure IP ranges, BGP lookups |
+| **🗂️ Asset Discovery** | Bucket enumeration, subdomain discovery, storage scanning | CloudEnum, cloud_enum, S3Scanner, GrayhatWarfare |
+| **🔓 Exposure Analysis** | Misconfiguration detection, sensitive data search, access testing | S3Browser, BucketLoot, ScoutSuite, Prowler |
+| **📊 Reporting** | Findings consolidation, evidence collection, risk assessment | Manual analysis + tool outputs |
+
+[↑ Back to Contents](#-contents)
+
+---
+
+## ☁️ Cloud Infrastructure Patterns
+
+> Understanding cloud URL patterns, regions, and service endpoints is the foundation of Cloud OSINT.
+
+### 🔵 Azure Storage
+
+| Service | URL Pattern |
+|---------|-------------|
+| Blob Storage | `http://<storageaccount>.blob.core.windows.net` |
+| Table Storage | `http://<storageaccount>.table.core.windows.net` |
+| Queue Storage | `http://<storageaccount>.queue.core.windows.net` |
+| Azure Files | `http://<storageaccount>.file.core.windows.net` |
+| Database | `http://<storageaccount>.database.windows.net` |
+
+### 🟠 AWS Regions
+
+<details>
+<summary>Click to expand full AWS regions list (36 regions)</summary>
+
+| Region Code | Location |
+|-------------|----------|
+| `af-south-1` | Africa (Cape Town) |
+| `ap-east-1` | Asia Pacific (Hong Kong) |
+| `ap-northeast-1` | Asia Pacific (Tokyo) |
+| `ap-northeast-2` | Asia Pacific (Seoul) |
+| `ap-northeast-3` | Asia Pacific (Osaka) |
+| `ap-south-1` | Asia Pacific (Mumbai) |
+| `ap-south-2` | Asia Pacific (Hyderabad) |
+| `ap-southeast-1` | Asia Pacific (Singapore) |
+| `ap-southeast-2` | Asia Pacific (Sydney) |
+| `ap-southeast-3` | Asia Pacific (Jakarta) |
+| `ap-southeast-4` | Asia Pacific (Melbourne) |
+| `ap-southeast-5` | Asia Pacific (Malaysia) |
+| `ap-southeast-7` | Asia Pacific (Thailand) |
+| `ca-central-1` | Canada (Central) |
+| `ca-west-1` | Canada (Calgary) |
+| `cn-north-1` | China (Beijing) |
+| `cn-northwest-1` | China (Ningxia) |
+| `eu-central-1` | Europe (Frankfurt) |
+| `eu-central-2` | Europe (Zurich) |
+| `eu-north-1` | Europe (Stockholm) |
+| `eu-south-1` | Europe (Milan) |
+| `eu-south-2` | Europe (Spain) |
+| `eu-west-1` | Europe (Ireland) |
+| `eu-west-2` | Europe (London) |
+| `eu-west-3` | Europe (Paris) |
+| `il-central-1` | Israel (Tel Aviv) |
+| `me-central-1` | Middle East (UAE) |
+| `me-south-1` | Middle East (Bahrain) |
+| `mx-central-1` | Mexico (Central) |
+| `sa-east-1` | South America (Sao Paulo) |
+| `us-east-1` | US East (N. Virginia) |
+| `us-east-2` | US East (Ohio) |
+| `us-gov-east-1` | AWS GovCloud (US-East) |
+| `us-gov-west-1` | AWS GovCloud (US-West) |
+| `us-west-1` | US West (N. California) |
+| `us-west-2` | US West (Oregon) |
+
+</details>
+
+### 🟠 AWS S3 Buckets
+
+| Pattern | URL Format |
+|---------|------------|
+| Path style | `https://s3.amazonaws.com/[bucketname]` |
+| Virtual hosted | `https://[bucketname].s3.amazonaws.com` |
+| Region specific | `https://s3-[region].amazonaws.com/[bucketname]/` |
+| Website hosting | `https://[bucketname].s3-website-[region].amazonaws.com/` |
+
+### 🟠 AWS SQS
+```
+https://sqs.[region].amazonaws.com
 ```
 
-### **GCP Ranges Parsing**
+### 🔴 GCP Technologies
 
+- [GCP Technologies Cheatsheet](https://googlecloudcheatsheet.withgoogle.com) - Visual overview of all Google Cloud services and their relationships.
+- [GCP Regions and Zones](https://cloud.google.com/compute/docs/regions-zones) - Complete list of GCP datacenter locations worldwide.
+
+### ⚫ IBM Cloud
+
+- [IBM Global Cloud Data Centers](https://www.ibm.com/cloud/data-centers) - Map and list of all IBM Cloud datacenter locations.
+- [IBM Cloud IP Ranges](https://cloud.ibm.com/docs/cloud-infrastructure?topic=cloud-infrastructure-ibm-cloud-ip-ranges) - Official IP address ranges for IBM Cloud infrastructure.
+
+### 🟤 Oracle Cloud
+
+- [Oracle Cloud Regions](https://www.oracle.com/cloud/data-regions/) - All Oracle Cloud Infrastructure (OCI) region locations.
+- [Oracle Cloud IP Ranges](https://docs.oracle.com/en-us/iaas/Content/General/Concepts/addressranges.htm) - Official OCI IP address ranges documentation.
+
+### 📡 Official IP Range Sources
+
+> Direct links to query cloud provider IP ranges programmatically.
+
+| Provider | Source | Quick Query |
+|----------|--------|-------------|
+| AWS | [ip-ranges.json](https://ip-ranges.amazonaws.com/ip-ranges.json) | `curl -s https://ip-ranges.amazonaws.com/ip-ranges.json \| jq '.prefixes[]'` |
+| Azure | [ServiceTags](https://www.microsoft.com/en-us/download/details.aspx?id=56519) | Download weekly JSON from Microsoft Download Center |
+| GCP | [cloud.json](https://www.gstatic.com/ipranges/cloud.json) | `curl -s https://www.gstatic.com/ipranges/cloud.json \| jq '.prefixes[]'` |
+| Oracle | [public_ip_ranges.json](https://docs.oracle.com/en-us/iaas/tools/public_ip_ranges.json) | `curl -s https://docs.oracle.com/en-us/iaas/tools/public_ip_ranges.json` |
+
+[↑ Back to Contents](#-contents)
+
+---
+
+## 🔍 Google Dorks
+
+> Search engine queries crafted to discover exposed cloud assets, misconfigurations, and sensitive data across major cloud providers.
+
+### Azure Dorks
 ```
-curl https://www.gstatic.com/ipranges/cloud.json | jq '.prefixes[].ipv4Prefix'
+site:blob.core.windows.net "keyword"
+site:"blob.core.windows.net" intext:"CONFIDENTIAL"
+site:*.core.windows.net intext:"TLP:RED"
+site:*.core.windows.net
+site:*.core.windows.net +blob
+site:*.core.windows.net +files -web -blob
+site:*.core.windows.net -web
+site:*.core.windows.net -web -blob -files
+site:*.core.windows.net inurl:dsts.dsts
+site:*.core.windows.net inurl:"term" -web
+site:*.blob.core.windows.net ext:xls | ext:xlsx (login | password | username)
+intext:connectionstring blob filetype:config
+intext:accountkey windows.net filetype:xml
+intext:storageaccountkey windows.net filetype:txt
 ```
 
-### **BGP and ASN**
+> **💡 Azure SAS Tokens:** Search for `"bfqt&srt"` to find exposed Shared Access Signature tokens.
 
-| Provider | Primary ASN | Additional ASNs |
-|----------|-------------|-----------------|
-| AWS | AS16509 | AS14618 |
-| Microsoft Azure | AS8075 | AS8069 |
-| Google Cloud | AS15169 | AS396982, AS19527 |
-| Oracle Cloud | AS31898 | — |
-| Alibaba Cloud | AS45102 | AS37963, AS134963 |
-| IBM Cloud | AS36351 | — |
-| Cloudflare | AS13335 | — |
-| DigitalOcean | AS14061 | — |
-| Linode/Akamai | AS63949 | AS12222 |
-| Vultr | AS20473 | — |
-| OVHcloud | AS16276 | — |
-| Hetzner | AS24940 | — |
-| Scaleway | AS12876 | AS29447 |
+### AWS Dorks
+```
+site:"s3-external-1.amazonaws.com" intext:CONFIDENTIAL
+site:"s3.amazonaws.com" intext:CONFIDENTIAL
+site:"s3.dualstack.us-east-1.amazonaws.com" intext:CONFIDENTIAL
+site:"s3-external-1.amazonaws.com" intext:"TOP SECRET"
+site:"s3.amazonaws.com" intext:"tlp:red"
+site:"s3.amazonaws.com" intext:"tlp:amber"
+site:s3.amazonaws.com example
+site:s3.amazonaws.com example.com
+site:s3.amazonaws.com example-com
+site:s3.amazonaws.com com.example
+site:s3.amazonaws.com com-example
+site:s3.amazonaws.com filetype:xls password
+site:http://s3.amazonaws.com intitle:index.of.bucket
+site:http://amazonaws.com inurl:".s3.amazonaws.com/"
+s3 site:amazonaws.com filetype:log
+site:http://trello.com "aws.amazon.com" "password"
+```
 
-**BGP lookup Tools**
+### Google Cloud Dorks
+```
+site:googleapis.com +commondatastorage
+site:.firebaseio.com "COMPANY NAME"
+inurl:bc.googleusercontent.com intitle:index of
+site:storage.googleapis.com
+site:console.cloud.google.com/storage/browser
+site:console.cloud.google.com/storage/browser/_details
+site:firebasestorage.googleapis.com
+```
 
-* Hurricane Electric BGP Toolkit — https://bgp.he.net/ — Query `https://bgp.he.net/AS16509` for AWS prefixes
-* BGP.Tools — https://bgp.tools/ — Real-time BGP data and ASN search
-* PeeringDB — https://www.peeringdb.com/ — Network interconnection data and peering locations
+### IBM Cloud Dorks
+```
+site:appdomain.cloud
+site:appdomain.cloud +s3
+site:*cloud-object-storage.appdomain.cloud
+site:codeengine.appdomain.cloud
+site:containers.appdomain.cloud
+site:clb.appdomain.cloud
+site:apiconnect.appdomain.cloud
+site:cdn.appdomain.cloud
+site:lb.appdomain.cloud
+site:vmware.cloud.ibm.com
+site:appid.cloud.ibm.com
+site:ibmmarketingcloud.com
+```
 
-**Third-party IP attribution services**
+### Miscellaneous Dorks
+```
+site:notion.site "keyword"
+site:digitaloceanspaces.com "keyword"
+site:*.cloudfront.net "keyword"
+site:*.herokuapp.com "keyword"
+site:*.netlify.app "keyword"
+site:*.vercel.app "keyword"
+```
 
-* IPinfo.io — https://ipinfo.io/
-    * Provides `is_hosting` flag for datacenter/cloud detection
-    * API: `https://api.ipinfo.io/{ip}?token={TOKEN}`
-    * Free tier available with ASN data
+[↑ Back to Contents](#-contents)
 
-* MaxMind GeoIP2 — https://www.maxmind.com/
-    * Anonymous IP Database detects VPNs, proxies, hosting providers
-    * `is_hosting_provider` field in Enterprise tier
-    * GeoLite2 free version available
+---
 
-* IP2Location — https://www.ip2location.com/
-    * Usage type includes "DCH" (Data Center/Web Hosting)
-    * IP2Proxy database for proxy/VPN detection
-    * Daily updates
+## 🌐 Shodan Dorks
 
-* Shodan InternetDB — https://internetdb.shodan.io/{ip}
-    * Free IP enrichment without API key
-    * Returns open ports, hostnames, cloud provider tags
+> Shodan queries to discover cloud-hosted services, misconfigurations, and exposed infrastructure.
 
-* AbuseIPDB — https://www.abuseipdb.com/
-    * `usageType` field returns "Data Center/Web Hosting/Transit"
-    * Free tier: 1,000 API requests/day
- 
-**Aggregated IP range repositories**
+### Filter Reference
 
-* tobilg/public-cloud-provider-ip-ranges — https://github.com/tobilg/public-cloud-provider-ip-ranges
-    * Includes DuckDB database for SQL queries
-    * Coverage: AWS, Azure, Cloudflare, DigitalOcean, Fastly, GCP, Oracle, Linode
+| Filter | Description |
+|--------|-------------|
+| `cloud.provider` | Filter by cloud provider name (Amazon, Azure, Google, etc.) |
+| `cloud.region` | Filter by cloud region identifier |
+| `cloud.service` | Filter by specific cloud service name |
 
-* lord-alfred/ipranges — https://github.com/lord-alfred/ipranges
-    * Daily updated lists for Google, AWS, Microsoft, Oracle, DigitalOcean, Linode, Vultr, Cloudflare GitHub
+### Azure Queries
+```
+cloud.service:"azureCloud"
+cloud.service:"azureCloud" country:GB,US http.title:"swagger" http.status:200
+cloud.service:"azureCloud" http.status:200 country:GB,US -http.title:"Your Azure Function App is up and running." -http.title:"IIS Windows Server"
+cloud.provider:"Azure" country:GB,US http.status:200 http.title:"Index of /" ssl:true
+cloud.provider:"Azure" country:GB,US http.status:200 http.title:"Index of /"
+cloud.provider:"Azure" hostname:"cloudapp.net" http.status:200,302
+cloud.service:"AzureCloud" http.status:200 http.title:"api"
+```
 
-## **DNS and domain intelligence**
+### Amazon Queries
+```
+cloud.provider:"Amazon"
+cloud.provider:"Amazon" http.status:200,302 http.title:"Index of /"
+cloud.provider:"Amazon" http.status:200 "aws" "key"
+cloud.provider:"Amazon" http.title:"Dashboard" http.status:200
+```
 
-Cloud services follow predictable DNS naming patterns that enable passive discovery through subdomain enumeration, certificate transparency mining, and pattern matching.
+### Other Cloud Queries
+```
+cloud.provider:"Google" http.status:200
+cloud.provider:"Oracle" http.status:200
+site:vps-*.vps.ovh.net
+cloud.provider:"DigitalOcean" http.status:200,302
+```
 
-### **Cloud service DNS patterns**
+[↑ Back to Contents](#-contents)
 
-**Amazon Web Services**
+---
 
-| Pattern | Service |
-|---------|---------|
-| `{bucket}.s3.amazonaws.com` | S3 Storage |
-| `{bucket}.s3.{region}.amazonaws.com` | S3 Regional |
-| `*.ec2.{region}.compute.amazonaws.com` | EC2 Instances |
-| `*.elasticbeanstalk.com` | Elastic Beanstalk |
-| `*.cloudfront.net` | CloudFront CDN |
-| `*.execute-api.{region}.amazonaws.com` | API Gateway |
-| `{id}.lambda-url.{region}.on.aws` | Lambda URLs |
-| `*.awsapps.com` | WorkMail, WorkDocs |
-| https://sqs.[region].amazonaws.com | SQS |
+## 🔐 Certificate Transparency
 
-**AWS Regions**
+> Certificate Transparency (CT) logs record every SSL/TLS certificate issued, making them a goldmine for discovering cloud-hosted assets and subdomains.
 
-* af-south-1
-* ap-east-1
-* ap-northeast-1
-* ap-northeast-2
-* ap-northeast-3
-* ap-south-1
-* ap-south-2
-* ap-southeast-1
-* ap-southeast-2
-* ap-southeast-3
-* ap-southeast-4
-* ap-southeast-5
-* ap-southeast-7
-* ca-central-1
-* ca-west-1
-* cn-north-1
-* cn-northwest-1
-* eu-central-1
-* eu-central-2
-* eu-north-1
-* eu-south-1
-* eu-south-2
-* eu-west-1
-* eu-west-2
-* eu-west-3
-* il-central-1
-* me-central-1
-* me-south-1
-* mx-central-1
-* sa-east-1
-* us-east-1
-* us-east-2
-* us-gov-east-1
-* us-gov-west-1
-* us-west-1
-* us-west-2
+- [crt.sh](https://crt.sh) - Search CT logs by domain, organization, or certificate fingerprint. Use `%.example.com` to find all subdomains.
+- [Censys Certificates](https://search.censys.io/certificates) - Advanced certificate search with filters for cloud provider organizations.
+- [CertStream](https://certstream.calidog.io/) - Real-time certificate issuance monitoring to detect new cloud deployments as they go live.
+- [Facebook CT Monitor](https://developers.facebook.com/tools/ct/) - Monitor certificates issued for specific domains.
 
-**Microsoft Azure**
-
-| Pattern | Service |
-|---------|---------|
-| `{account}.blob.core.windows.net` | Blob Storage |
-| `{account}.table.core.windows.net` | Table Storage |
-| `{account}.queue.core.windows.net` | Queue Storage |
-| `{account}.file.core.windows.net` | Azure Files |
-| `{account}.database.windows.net` | Azure SQL |
-| `{app}.azurewebsites.net` | App Service |
-| `*.cloudapp.azure.com` | Cloud Services |
-| `*.azureedge.net` | Azure CDN |
-
-**Google Cloud Platform**
-
-| Pattern | Service |
-|---------|---------|
-| `{bucket}.storage.googleapis.com` | Cloud Storage |
-| `storage.googleapis.com/{bucket}` | Cloud Storage (path) |
-| `{service}.run.app` | Cloud Run |
-| `{region}-{project}.cloudfunctions.net` | Cloud Functions |
-| `{project}.appspot.com` | App Engine |
-| `{project}.firebaseio.com` | Firebase |
-| `{project}.web.app` | Firebase Hosting |
-
-**GCP Technologies**
-* Technologies Cheatsheet - https://googlecloudcheatsheet.withgoogle.com
-* GCP Regions and Zones - https://cloud.google.com/compute/docs/regions-zones
-
-**Other Providers**
-
- Provider | Storage Pattern |
-|----------|----------------|
-| Oracle | `{bucket}.objectstorage.{region}.oraclecloud.com` |
-| DigitalOcean | `{bucket}.{region}.digitaloceanspaces.com` |
-| Alibaba | `{bucket}.oss-{region}.aliyuncs.com` |
-| IBM | `{bucket}.s3.{region}.cloud-object-storage.appdomain.cloud` |
-| Cloudflare R2 | `pub-{hash}.r2.dev` |
-| Linode | `{cluster}.linodeobjects.com` |
-
-### **Certificate Transparency Sources**
-
-* **crt.sh** — https://crt.sh
-    * Primary CT log search interface
-    * Web query: `https://crt.sh/?q=%.example.com`
-    * Direct PostgreSQL: `psql -h crt.sh -p 5432 -U guest certwatch`
-    * Cloud discovery: `https://crt.sh/?q=%.s3.amazonaws.com&output=json`
-
-* **Censys** — https://search.censys.io/
-    * Certificate and host search with cloud provider detection
-    * Query: `services.tls.certificates.leaf_data.subject.common_name: *.amazonaws.com`
-
-* **Certstream** — https://certstream.calidog.io/
-    * Real-time CT log feed via WebSocket
-    * Python library: `pip install certstream`
-    * Use case: Monitor for new cloud certificates as they're issued
-
-### **Passive DNS Services**
-
-* **Farsight DNSDB** — https://www.domaintools.com/
-    * Largest passive DNS database with 100+ billion records
-    * Commercial with community edition available
-
-* **SecurityTrails** — https://securitytrails.com/
-    * Historical DNS, subdomain API
-    * Free tier: 50 requests/month
-    * API: `https://api.securitytrails.com/v1/domain/{domain}/subdomains`
-
-* **Chaos by ProjectDiscovery** — https://chaos.projectdiscovery.io/
-    * Continuously updated DNS dataset
-    * Free API key via cloud.projectdiscovery.io
-
-## **Misconfiguration detection**
-
-Exposed cloud storage buckets and misconfigured services represent significant security risks. These tools and databases help identify vulnerable assets.
-
-### Bucket discovery tools
-
-* **GrayhatWarfare** — https://buckets.grayhatwarfare.com/
-    * Database of **470,600+ buckets** and **15.2 billion+ files**
-    * Coverage: 313,218 S3 buckets, 64,323 Azure containers, 81,303 GCP buckets
-    * API for automation, regex search support
-    * Free tier with premium options (~$25/month)
-
-* **S3Scanner** — https://github.com/sa7mon/S3Scanner
-    * Multi-provider scanner: AWS, GCP, DigitalOcean, Linode, Scaleway
-    * Commands:
+**Example CT queries for cloud assets:**
 ```bash
-s3scanner -bucket-file names.txt -enumerate  # List objects
-s3scanner -provider gcp -bucket-file names.txt  # GCP buckets
+# Find all subdomains via crt.sh
+curl -s "https://crt.sh/?q=%.example.com&output=json" | jq -r '.[].name_value' | sort -u
+
+# Search for cloud-specific certificate organizations
+# On crt.sh: O=Amazon, O=Microsoft Corporation, O=Google Trust Services
 ```
 
-* **GCPBucketBrute** — https://github.com/RhinoSecurityLabs/GCPBucketBrute
-    * GCS bucket enumeration with privilege escalation detection
-    * Command: `python3 gcpbucketbrute.py -k keyword -u` (unauthenticated)
-
-* **CloudBrute** — https://github.com/0xsha/CloudBrute
-    * Multi-cloud: AWS, GCP, Azure, DigitalOcean, Alibaba, Vultr, Linode
-    * Command: `cloudbrute -d domain.com -k keyword -w wordlist.txt -c aws`
-
-* **BucketLoot** — https://github.com/redhuntlabs/BucketLoot
-    * Automated S3-compatible bucket inspector for secrets
-    * Featured at Black Hat Arsenal 2023-2024
-
-* **BlobHunter** — https://github.com/cyberark/BlobHunter
-    * Azure-specific blob container scanner
-    * Requires Azure credentials with storage permissions
-
-* **MicroBurst** — https://github.com/NetSPI/MicroBurst
-    * Comprehensive Azure security toolkit
-    * Commands:
-```powershell
-Import-Module .\MicroBurst.psm1
-Invoke-EnumerateAzureBlobs -Base companyname
-Invoke-EnumerateAzureSubDomains -Base companyname
-```
-
-* **AWS Eye** — https://awseye.com/
-    * Web-based OSINT tool for misconfigured S3 buckets
-    * Free search interface
- 
-### Exposure databases and services
-
-* **LeakIX** — https://leakix.net/
-    * Exposed services database with cloud plugins
-    * Query syntax (YQL): `plugin:GitConfigPlugin`, `protocol:mysql`, `asn:16509`
-    * 15-day responsible disclosure delay
-
-* **PublicWWW** — https://publicwww.com/
-   * Source code search for cloud storage references
-   * Search: `"s3.amazonaws.com"`, `"blob.core.windows.net"`
-
-### **Google dorks**
-
-**Azure**
-```
-* site:blob.core.windows.net “keyword” 
-* site:"blob.core.windows.net" and intext:"CONFIDENTIAL"
-* site:*.core.windows.net intext:"TLP:RED"
-* site:*.core.windows.net
-* site:*.core.windows.net +blob
-* site:*.core.windows.net +files -web -blob
-* site:*.core.windows.net -web
-* site:*.core.windows.net -web -blob -files
-* site:*.core.windows.net inurl:dsts.dsts
-* site:*.core.windows.net inurl:"term" -web
-* site:*.blob.core.windows.net ext:xls | ext:xlsx (login | password | username)
-* intext:connectionstring blob filetype:config
-* intext:accountkey windows.net filetype:xml
-* intext:storageaccountkey windows.net filetype:txt
-* Azure SAS Tokens - "bfqt&srt"
-```
-**AWS**
-```
-* site:"s3-external-1.amazonaws.com" and intext:CONFIDENTIAL
-* site:"s3.amazonaws.com" and intext:CONFIDENTIAL
-* site:"s3.dualstack.us-east-1.amazonaws.com" and intext:CONFIDENTIAL
-* site:"s3-external-1.amazonaws.com" and intext:"TOP SECRET"
-* site:"s3.amazonaws.com" and intext:"tlp:red"
-* site:s3.amazonaws.com example
-* site:s3.amazonaws.com example.com
-* site:s3.amazonaws.com example-com
-* site:s3.amazonaws.com com.example
-* site:s3.amazonaws.com com-example
-* site:s3.amazonaws.com filetype:xls password
-* site:http://s3.amazonaws.com intitle:index.of.bucket
-* site:http://amazonaws.com inurl:".s3.amazonaws.com/"
-* s3 site:amazonaws.com filetype:log
-* site:s3.amazonaws.com "keyword"
-* site:s3.amazonaws.com intitle:index.of.bucket
-* site:s3.amazonaws.com filetype:sql
-* site:"s3.amazonaws.com" intext:CONFIDENTIAL
-* s3 site:amazonaws.com filetype:xls password
-```
-**Google Cloud**
-```
-* site:googleapis.com +commondatastorage
-* site:.firebaseio.com "COMPANY NAME" 
-* inurl:bc.googleusercontent.com intitle:index of  
-* Bucket list for a project - site:console.cloud.google.com/storage/browser
-* Details for an object - site:console.cloud.google.com/storage/browser/_details
-* site:firebasestorage.googleapis.com
-* site:storage.googleapis.com "keyword"
-* site:storage.cloud.google.com
-* site:*.appspot.com
-* site:firebaseio.com
-```
-**IBM Cloud**
-```
-* site:appdomain.cloud
-* site:appdomain.cloud +s3
-* site:*cloud-object-storage.appdomain.cloud
-* site:codeengine.appdomain.cloud
-* site:containers.appdomain.cloud
-* site:clb.appdomain.cloud
-* site:apiconnect.appdomain.cloud
-* site:cdn.appdomain.cloud
-* site:lb.appdomain.cloud
-* site:vmware.cloud.ibm.com - VMware Cloud Director Availability
-* site:appid.cloud.ibm.com - IBM Cloud App ID Management Configuration APIs and AppID Authentication Portals
-* site:site:ibmmarketingcloud.com
-```
-### **Miscellaneous Services**
-```
-* site:notion.site "keyword"
-* site:http://trello.com "aws.amazon.com" "password"
-```
-## **Cloud Metadata and Fingerprint**
-
-HTTP headers, certificates, and metadata endpoints provide reliable indicators for identifying cloud providers and services.
-
-### HTTP headers by provider
-
-**AWS headers:**
-| Header | Indicates |
-|--------|-----------|
-| `x-amz-request-id` | S3/AWS service (16-char alphanumeric) |
-| `x-amz-id-2` | S3 extended request ID (Base64) |
-| `X-Amz-Cf-Id` | CloudFront CDN |
-| `Server: AmazonS3` | S3 bucket hosting |
-| `Server: awselb/2.0` | Elastic Load Balancer |
-| `X-Amzn-Trace-Id` | AWS X-Ray tracing |
-
-**Azure headers:**
-| Header | Indicates |
-|--------|-----------|
-| `x-ms-request-id` | Azure service (GUID format) |
-| `x-ms-version` | Azure API version (date format) |
-| `x-azure-ref` | Azure Front Door |
-| `x-ms-blob-type` | Azure Blob Storage type |
-
-**GCP headers:**
-| Header | Indicates |
-|--------|-----------|
-| `x-goog-*` | GCP services |
-| `x-cloud-trace-context` | Cloud Trace |
-| `Server: Google Frontend` | GCP infrastructure |
-| `Metadata-Flavor: Google` | GCP metadata (required header) |
-
-**Cloudflare headers:**
-| Header | Indicates |
-|--------|-----------|
-| `cf-ray` | Cloudflare request ID (hash + datacenter) |
-| `cf-cache-status` | Cache behavior (HIT/MISS/DYNAMIC) |
-| `Server: cloudflare` | Cloudflare proxy |
-
-### Cloud metadata endpoints
-
-**AWS IMDS:**
-* Endpoint: `http://169.254.169.254/latest/meta-data/`
-* Key paths: `/ami-id`, `/instance-id`, `/iam/security-credentials/`
-* IMDSv2 requires token: `curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
-
-**Azure IMDS:**
-* Endpoint: `http://169.254.169.254/metadata/instance?api-version=2021-02-01`
-* Required header: `Metadata: true`
-
-**GCP Metadata:**
-* Endpoint: `http://metadata.google.internal/computeMetadata/v1/`
-* Required header: `Metadata-Flavor: Google`
-
-**DigitalOcean:**
-* Endpoint: `http://169.254.169.254/metadata/v1/`
-
-**Alibaba Cloud:**
-* Endpoint: `http://100.100.100.200/latest/meta-data/`
-
-### Certificate patterns
-
-**AWS Certificate Authority:**
-* Issuer: `CN=Amazon Root CA 1-4, O=Amazon, C=US`
-* Types: RSA 2048, RSA 4096, ECDSA P-256, ECDSA P-384
-
-**Detection with Censys:**
-```
-services.tls.certificates.leaf_data.issuer.organization: "Amazon"
-services.tls.certificates.leaf_data.issuer.organization: "Microsoft Corporation"
-services.tls.certificates.leaf_data.issuer.organization: "Google Trust Services"
-```
-
-### Fingerprinting tools
-
-* **WhatWeb** — https://github.com/urbanadventurer/WhatWeb
-    * 1800+ plugins for technology detection
-    * Command: `whatweb --aggression=3 target.com`
-
-* **httpx** — https://github.com/projectdiscovery/httpx
-    * Fast HTTP probing with tech detection
-    * Command: `httpx -u https://target.com -tech-detect -server -title`
-
-* **Nuclei** — https://github.com/projectdiscovery/nuclei-templates
-    * YAML-based detection templates
-    * Cloud templates: `nuclei -u https://target.com -tags cloud,aws,azure,gcp`
-
-## Search engines and specialized tools
-
-### **Shodan Queries**
-
-* **Cloud Providers Filters**
-
-  * cloud.provider
-    * cloud.provider:aws
-    * cloud.provider:azure
-    * cloud.provider:gcp
-  * cloud.region
-  * cloud.service
-
-* **Azure**
-
-    * cloud.service:"azureCloud"
-    * cloud.service:"azureCloud" country:GB,US http.title:"swagger" http.status:200 - API Documentation
-    * cloud.service:"azureCloud" http.status:200 country:GB,US -http.title:"Your Azure Function App is up and running." -http.title"IIS Windows Server“ - Web Services that are not default splash pages
-    * cloud.provider:"Azure" country:GB,US http.status:200 http.title:"Index of /" ssl:true - Web Apps with directory listings enabled and SSL
-    * cloud.provider:"Azure" country:GB,US http.status:200 http.title:"Index of /" - Web Apps with directory listings enabled
-    * cloud.provider:"Azure" hostname:"cloudapp.net" http.status:200,302 - Cloud Apps
-    * cloud.service:"AzureCloud" http.status:200 http.title:"api" - APIs
-    * org:"Microsoft Azure"
-    * hostname:*.azurewebsites.net
-    * hostname:*.cloudapp.azure.com
-
-* **AWS Specific**
-
-    * cloud.provider:"Amazon"
-    * cloud.provider:"Amazon" http.status:200,302 http.title:"Index of /"
-    * org:"Amazon.com"
-    * org:"Amazon Web Services"
-    * hostname:*.amazonaws.com
-    * Server:AmazonS3
-    * html:"ListBucketResult"
- 
-* **GCP**
-    
-  * org:"Google Cloud"
-  * hostname:*.appspot.com
-  * hostname:*.googleusercontent.com
-
-* **Exposed Services**
-  * product:kubernetes port:6443
-  * port:2375 product:docker
-  * port:9200 org:"Amazon.com"  # Elasticsearch
-  * port:27017 org:"Amazon.com"  # MongoDB
-
-* **Other Cloud Services**
-
-    * site:vps-*.vps.ovh.net
-
- ### **Censys Queries**
-
-* **Cloud Providers Detection**
-  * services.cloud.provider: "AWS"
-  * services.cloud.provider: "AZURE"
-  * services.cloud.provider: "GCP"
-  * autonomous_system.asn: 16509  # AWS
-  * autonomous_system.asn: 8075   # Azure
-  * autonomous_system.asn: 15169  # GCP
-
-* **Certificate Based**
-  * services.tls.certificates.leaf_data.issuer.organization: "Amazon"
-  * services.http.response.headers.Server: "AmazonS3"
-
-### **Other search engines**
-
-* **BinaryEdge** — https://www.binaryedge.io/
-  * Free: 250 queries/month
-  * Query: `asn:AS16509`, `type:elasticsearch`
-
-* **ZoomEye** — https://www.zoomeye.org/
-  * China-based, ~1.2 billion indexed devices
-  * Query: `app:"Amazon Web Services"`, `os:"Amazon Linux"`
-
-* **FOFA** — https://fofa.so/
-  * Query: `server="AmazonS3"`, `header="x-amz-"`, `cert.issuer="Amazon"`
-
-* **Netlas** — https://netlas.io/
-  * Python SDK, Maltego integration
-  * Query: `http.headers.server:"AmazonS3"`, `cve.name:"CVE-2021-*" AND tag:aws`
-
-* **GreyNoise** — https://www.greynoise.io/
-  * Identifies cloud provider scanning traffic
-  * GNQL: `metadata.asn:AS16509`, `classification:malicious metadata.cloud_provider:aws`
-
-* **URLScan.io** — https://urlscan.io/
-  * Website scanning with ASN identification
-  * Query: `asn:AS16509 AND domain:example.com`
- 
-* **Google CSE** - https://cse.google.com/cse?cx=002972716746423218710:veac6ui3rio#gsc.tab=0&gsc.q=
- 
-## **Specialized Cloud OSINT Tools**
-
-1. **CloudEnum** - https://github.com/initstring/cloud_enum
-- Multi-cloud enumeration for AWS, Azure, GCP
-- Command: `./cloud_enum.py -k companyname -k brand`
-- Discovers S3 buckets, Azure blobs, GCP buckets, Firebase, App Engine
-
-2. **S3 Browser** - https://s3browser.com - This is not properly a tool for OSINT tasks but is a Windows client for Amazon S3 and Amazon CloudFront that could help to browse some files.
-
-3. **Prowler** — https://github.com/prowler-cloud/prowler
-- Cloud security posture management for AWS, Azure, GCP, Kubernetes
-- 500+ controls, CIS/NIST/PCI-DSS compliance
-- Commands:
-```bash
-prowler aws  # Full AWS audit
-prowler azure  # Azure audit
-prowler gcp  # GCP audit
-prowler aws --compliance cis_2.0  # Specific framework
-```
-
-4. **ScoutSuite** — https://github.com/nccgroup/ScoutSuite
-- Multi-cloud security auditing by NCC Group
-- Commands:
-```bash
-scout aws --profile myprofile
-scout azure --cli
-scout gcp --service-account /path/to/sa.json
-```
-
-5. **CloudFox** — https://github.com/BishopFox/cloudfox
-- Attack path enumeration for AWS/Azure/GCP
-- Commands:
-```bash
-cloudfox aws all-checks
-cloudfox aws principals
-cloudfox aws permissions
-cloudfox aws secrets
-```
-
-6. **Pacu** — https://github.com/RhinoSecurityLabs/pacu
-- AWS exploitation framework by Rhino Security Labs
-- 36+ modules for enumeration, privilege escalation, persistence
-- Commands:
-```bash
-python3 pacu.py
-# In Pacu:
-run iam__enum_permissions
-run iam__privesc_scan
-run s3__bucket_finder -d domain.com
-```
-
-7. **ROADtools** — https://github.com/dirkjanm/ROADtools
-- Azure AD/Entra exploration toolkit
-- Commands:
-```bash
-roadrecon auth -u user@tenant.onmicrosoft.com
-roadrecon gather
-roadrecon gui
-```
-
-8. **AADInternals** — https://github.com/Gerenios/AADInternals
-- Azure AD reconnaissance (requires authentication as of Sept 2025)
-- Commands:
-```powershell
-Invoke-AADIntReconAsOutsider -DomainName "company.com"
-Get-AADIntTenantID -Domain company.onmicrosoft.com
-```
-
-9. **Cartography** — https://github.com/cartography-cncf/cartography
-- Infrastructure graph analysis with Neo4j
-- CNCF Sandbox project, originated at Lyft
-- Query: `MATCH (ec2:EC2Instance) WHERE ec2.exposed_internet = true RETURN ec2`
-
-10. **Checkov** — https://github.com/bridgecrewio/checkov
-- IaC security scanner for Terraform, CloudFormation, Kubernetes
-- 750+ built-in policies
-- Command: `checkov -d /path/to/terraform`
-
-11. **Cloudsplaining** — https://github.com/salesforce/cloudsplaining
-- AWS IAM security assessment
-- Detects privilege escalation, data exfiltration permissions
-
-
-## **Create your own Dorks**
-1. https://dorksearch.com/
-2. https://www.dorkgpt.com/ dorks with chatgpt
-
-## **Others**
-
-1. https://www.dedigger.com/# find exposed files in Google Drive, try search terms: AWS, azure, gcp, etc.
+[↑ Back to Contents](#-contents)
+
+---
+
+## 📚 Web Cloud OSINT Resources
+
+> Online platforms and search engines for discovering exposed cloud assets and misconfigurations.
+
+- [GrayhatWarfare](https://buckets.grayhatwarfare.com/) - Search engine for open S3 buckets, Azure blobs, and GCP storage across cloud providers.
+- [Google Custom Search for Cloud Storage](https://cse.google.com/cse?cx=002972716746423218710:veac6ui3rio#gsc.tab=0) - Custom Google search engine focused on cloud storage buckets and containers.
+- [FullHunt](https://fullhunt.io/) - Attack surface discovery platform with cloud asset identification capabilities.
+- [AADInternals OSINT](https://aadinternals.com/osint/) - Azure Active Directory tenant information including subdomains and configuration data.
+- [SOCRadar BlueBleed](https://socradar.io/labs/bluebleed) - Discover misconfigured servers containing sensitive data across Azure, AWS, and GCP storage.
+- [Forager by TruffleSecurity](https://forager.trufflesecurity.com/explore) - Explore exposed cloud and service keys/credentials found in public sources.
+- [AWS Eye](https://awseye.com/) - OSINT tool for investigating AWS configurations, identifying misconfigured S3 buckets, and uncovering cloud exposures.
+- [LeakIX](https://leakix.net/) - Search engine for exposed services and data leaks, with cloud infrastructure filters.
+- [PublicWWW](https://publicwww.com/) - Source code search engine useful for finding websites connected to specific cloud services.
+
+> **💡 Tip:** Use the GrayhatWarfare API to programmatically search for exposed files:
+> ```
+> curl "https://buckets.grayhatwarfare.com/api/v1/files/[KEYWORD]?access_token=[TOKEN]&extensions=docx,xlsx,pdf"
+> ```
+
+[↑ Back to Contents](#-contents)
+
+---
+
+## 🛠️ Cloud OSINT Tools
+
+> Curated collection of tools for cloud reconnaissance, enumeration, and security assessment. Organized by scope and cloud provider.
+
+### Multi-Cloud Tools
+
+- [CloudEnum](https://github.com/initstring/cloud_enum) - Multi-cloud OSINT tool that enumerates public resources across AWS, Azure, and GCP simultaneously.
+- [CloudBrute](https://github.com/0xsha/CloudBrute) - Cloud infrastructure discovery tool supporting multiple providers with concurrent enumeration.
+- [CloudFox](https://github.com/BishopFox/cloudfox) - Automating situational awareness for cloud penetration testing across AWS, Azure, and GCP.
+- [CloudSploit](https://github.com/aquasecurity/cloudsploit) - Cloud security posture management detecting misconfigurations across AWS, Azure, GCP, and Oracle.
+- [Cartography](https://github.com/lyft/cartography) - Consolidates infrastructure assets and relationships across cloud providers into a graph database.
+- [Prowler](https://github.com/prowler-cloud/prowler) - Open-source cloud security tool for AWS, Azure, GCP, and Kubernetes with 300+ checks.
+- [ScoutSuite](https://github.com/nccgroup/ScoutSuite) - Multi-cloud security auditing tool for AWS, Azure, GCP, Alibaba Cloud, and Oracle Cloud configurations.
+- [Steampipe](https://github.com/turbot/steampipe) - Query cloud infrastructure using SQL across AWS, Azure, GCP, and 100+ other services.
+
+### AWS-Specific Tools
+
+- [AWSBucketDump](https://github.com/jordanpotti/AWSBucketDump) - Quickly enumerate AWS S3 buckets and search for interesting files within discovered buckets.
+- [enumerate-iam](https://github.com/andresriancho/enumerate-iam) - Enumerate IAM permissions for a given set of AWS credentials without logging.
+- [lazys3](https://github.com/nahamsec/lazys3) - Brute-force AWS S3 bucket discovery using different permutations of common names.
+- [Pacu](https://github.com/RhinoSecurityLabs/pacu) - AWS exploitation framework designed for offensive security testing of cloud environments.
+- [S3Scanner](https://github.com/sa7mon/S3Scanner) - Scan for open S3 buckets, dump their contents, and check bucket permissions.
+- [WeirdAAL](https://github.com/carnal0wnage/weirdAAL) - AWS Attack Library for testing and validating AWS security configurations.
+
+### Azure-Specific Tools
+
+- [AADInternals](https://github.com/Gerenios/AADInternals) - PowerShell module for Azure AD and Office 365 administration, exploitation, and backdooring.
+- [MicroBurst](https://github.com/NetSPI/MicroBurst) - PowerShell toolkit for attacking Azure services including storage, key vaults, and more.
+- [ROADtools](https://github.com/dirkjanm/ROADtools) - Framework for Azure AD reconnaissance and exploration of directory data.
+- [Stormspotter](https://github.com/Azure/Stormspotter) - Azure AD and resource visualization tool for mapping attack paths.
+
+### GCP-Specific Tools
+
+- [GCPBucketBrute](https://github.com/RhinoSecurityLabs/GCPBucketBrute) - Enumerate Google Storage buckets, determine access permissions, and check privilege escalation.
+- [gcp_enum](https://gitlab.com/gitlab-com/gl-security/threatmanagement/redteam/redteam-public/gcp_enum) - GCP enumeration tool for discovering and auditing Google Cloud resources.
+- [Hayat](https://github.com/DenizParlworksak/hayat) - GCP resource enumeration and analysis tool for security assessments.
+
+### Bucket and Storage Discovery
+
+- [bucket_finder](https://github.com/FishermansEnemy/bucket_finder) - Tool to bruteforce for the existence of AWS S3 buckets and check permissions.
+- [BucketLoot](https://github.com/redhuntlabs/BucketLoot) - Automated tool to inspect exposed storage buckets for sensitive data across cloud providers.
+- [S3 Browser](https://s3browser.com) - Windows client for Amazon S3 and CloudFront, useful for browsing discovered bucket contents.
+
+[↑ Back to Contents](#-contents)
+
+---
+
+## 🌍 Domain and Subdomain Identification
+
+> Tools and services for discovering domains, subdomains, and cloud-associated hostnames.
+
+- [Censys Search](https://search.censys.io/) - Search engine for hosts, domains, SSL certificates, and cloud-associated infrastructure.
+- [crt.sh](https://crt.sh) - Find domains and subdomains through SSL certificate transparency logs.
+- [DNSDumpster](https://dnsdumpster.com/) - Domain research tool for DNS recon and discovering hosts related to a target domain.
+- [osint.sh DNS History](https://osint.sh/dnshistory/) - Historical DNS record lookup to track infrastructure changes over time.
+- [osint.sh Subdomain Finder](https://osint.sh/subdomain/) - Subdomain enumeration through multiple data sources.
+- [SecurityTrails](https://securitytrails.com/) - Historical DNS data and domain intelligence with API access for automation.
+- [Spyse](https://spyse.com/tools/subdomain-finder) - Domain and subdomain enumeration with detailed DNS intelligence.
+- [Subfinder](https://github.com/projectdiscovery/subfinder) - Fast passive subdomain enumeration tool using multiple online sources.
+- [ZoomEye](https://www.zoomeye.org/) - Cyberspace search engine for discovering internet-connected devices and exposed services.
+
+[↑ Back to Contents](#-contents)
+
+---
+
+## 📝 Dork Generation Tools
+
+> Tools to help craft and optimize search engine dorks for cloud OSINT investigations.
+
+- [DorkSearch](https://dorksearch.com/) - Visual dork builder with pre-built templates for common cloud searches.
+- [DorkGPT](https://www.dorkgpt.com/) - AI-powered Google dork generator using ChatGPT for custom query creation.
+- [Google Hacking Database (GHDB)](https://www.exploit-db.com/google-hacking-database) - Extensive database of Google dork queries categorized by target type.
+
+[↑ Back to Contents](#-contents)
+
+---
+
+## 📦 Additional Resources
+
+> Complementary tools and platforms that enhance Cloud OSINT workflows.
+
+- [Dedigger](https://www.dedigger.com/#) - Find exposed files in Google Drive using search terms like AWS, Azure, GCP, etc.
+- [httpx](https://github.com/projectdiscovery/httpx) - Fast HTTP toolkit useful for probing discovered cloud endpoints at scale.
+- [IntelX](https://intelx.io/) - Intelligence search engine indexing historical data from cloud services, paste sites, and data leaks.
+- [Nuclei](https://github.com/projectdiscovery/nuclei) - Vulnerability scanner with cloud-specific templates for detecting misconfigurations.
+
+[↑ Back to Contents](#-contents)
+
+---
+
+## ⚖️ Responsible Use
+
+> **⚠️ Important:** The resources in this repository are intended for **authorized security testing, educational purposes, and legitimate research only**.
+
+Cloud OSINT techniques can reveal sensitive information about organizations' cloud infrastructure. Users of this repository are expected to:
+
+- **Obtain proper authorization** before conducting any reconnaissance against cloud infrastructure you do not own.
+- **Follow applicable laws** including the Computer Fraud and Abuse Act (CFAA), GDPR, and equivalent regulations in your jurisdiction.
+- **Practice responsible disclosure** if you discover exposed data or misconfigurations belonging to third parties.
+- **Respect privacy** and avoid accessing, downloading, or distributing sensitive data found through these techniques.
+
+Neither the maintainers of this repository nor 7Way Security are responsible for any misuse of the information provided herein.
+
+[↑ Back to Contents](#-contents)
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome and appreciated! Please read our [Contributing Guidelines](CONTRIBUTING.md) before submitting a PR.
+
+**Quick contribution guide:**
+
+1. Fork this repository
+2. Add your resource following the format: `- [Tool Name](https://url.com) - Brief description of what it does.`
+3. Ensure your addition is placed in the correct category
+4. Submit a Pull Request
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed instructions.
+
+---
+
+<p align="center">
+  <sub>Maintained with ❤️ by <a href="https://github.com/7WaySecurity">7Way Security</a> | <a href="https://7waysecurity.com">7waysecurity.com</a></sub>
+</p>
