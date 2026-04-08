@@ -495,6 +495,14 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed instructions.
 
 ---
 
+## 🤖 AI OSINT
+
+Looking for OSINT resources specific to **AI/ML infrastructure**? Check out our companion repository:
+
+**[ai_osint](https://github.com/7WaySecurity/ai_osint)** — Google dorks, Shodan queries, and techniques to discover exposed LLM endpoints (Ollama, vLLM), leaked AI API keys (OpenAI, Anthropic, Gemini), misconfigured vector databases (Qdrant, Weaviate, ChromaDB), unprotected AI agents (MCP servers, OpenClaw), and more.
+
+---
+
 <p align="center">
   <sub>Maintained with ❤️ by <a href="https://github.com/7WaySecurity">7Way Security</a> | <a href="https://7waysecurity.com">7waysecurity.com</a></sub>
 </p>
