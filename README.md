@@ -431,6 +431,7 @@ curl -s "https://crt.sh/?q=%.example.com&output=json" | jq -r '.[].name_value' |
 - [osint.sh Subdomain Finder](https://osint.sh/subdomain/) - Subdomain enumeration through multiple data sources.
 - [SecurityTrails](https://securitytrails.com/) - Historical DNS data and domain intelligence with API access for automation.
 - [Spyse](https://spyse.com/tools/subdomain-finder) - Domain and subdomain enumeration with detailed DNS intelligence.
+- [Darkmoon](https://github.com/ASCIT31/Dark-Moon) - Open source (GPL-3.0) autonomous AI penetration testing platform covering web, API, Active Directory and Kubernetes, with proof of exploitation.
 - [Subfinder](https://github.com/projectdiscovery/subfinder) - Fast passive subdomain enumeration tool using multiple online sources.
 - [ZoomEye](https://www.zoomeye.org/) - Cyberspace search engine for discovering internet-connected devices and exposed services.
 
