@@ -363,6 +363,7 @@ curl -s "https://crt.sh/?q=%.example.com&output=json" | jq -r '.[].name_value' |
 - [AWS Eye](https://awseye.com/) - OSINT tool for investigating AWS configurations, identifying misconfigured S3 buckets, and uncovering cloud exposures.
 - [LeakIX](https://leakix.net/) - Search engine for exposed services and data leaks, with cloud infrastructure filters.
 - [PublicWWW](https://publicwww.com/) - Source code search engine useful for finding websites connected to specific cloud services.
+- [Xquik](https://github.com/Xquik-dev/x-twitter-scraper) - Independent X (Twitter) data API for search, follower export, monitors, and MCP.
 
 > **💡 Tip:** Use the GrayhatWarfare API to programmatically search for exposed files:
 > ```
