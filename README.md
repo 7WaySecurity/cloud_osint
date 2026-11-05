@@ -504,5 +504,5 @@ Looking for OSINT resources specific to **AI/ML infrastructure**? Check out our 
 ---
 
 <p align="center">
-  <sub>Maintained with ❤️ by <a href="https://github.com/7WaySecurity">7Way Security</a> | <a href="https://7waysecurity.com">7waysecurity.com</a></sub>
+  <sub>Maintained with ❤️ by <a href="https://github.com/7WaySecurity">7Way Security</a> | <a href="https://7waysecurity.co">7waysecurity.co</a></sub>
 </p>
